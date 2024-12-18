@@ -30,7 +30,26 @@ INPUT = dict(
         # cosy+aae
     ),
 )
-
+DATA_CFG = dict(
+    # Dataset paths and configuration
+    TRAIN_PATH="datasets/BOP_DATASETS/ycbv/train",  # Update with correct path
+    TEST_PATH="datasets/BOP_DATASETS/ycbv/test",    # Update with correct path
+    ANNOTATIONS_PATH="datasets/BOP_DATASETS/ycbv/annotations",  # Update with correct path
+    
+    # Dataset specific augmentations or configurations
+    TRANSFORMS=dict(
+        # You can add specific transformations here, like resizing, normalization, etc.
+        resize=(640, 480),
+        normalize=dict(mean=[0.0, 0.0, 0.0], std=[255.0, 255.0, 255.0]),
+        augmentations=dict(
+            flip=True,
+            rotate=True,
+            crop=True,
+            # Add more augmentations as required
+        ),
+    ),
+    # Any other relevant dataset configurations can go here
+)
 SOLVER = dict(
     IMS_PER_BATCH=48,
     TOTAL_EPOCHS=40,  # 10
@@ -42,9 +61,9 @@ SOLVER = dict(
     WARMUP_FACTOR=0.001,
     WARMUP_ITERS=1000,
 )
-
+#remove "ycbv_train_real" from train set
 DATASETS = dict(
-    TRAIN=("ycbv_train_real", "ycbv_train_pbr"),
+    TRAIN=("ycbv_train_pbr"),
     TEST=("ycbv_test",),
     DET_FILES_TEST=("datasets/BOP_DATASETS/ycbv/test/test_bboxes/yolox_x_640_ycbv_real_pbr_ycbv_bop_test.json",),
     SYM_OBJS=[

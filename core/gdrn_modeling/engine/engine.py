@@ -220,15 +220,9 @@ class GDRN_Lite(LightningLite):
             optimizer=optimizer,
             scheduler=scheduler,
         )
-        if hasattr(self._precision_plugin, "scaler"):
-            extra_ckpt_dict["gradscaler"] = self._precision_plugin.scaler
-        checkpointer = MyCheckpointer(
-            model,
-            cfg.OUTPUT_DIR,
-            save_to_disk=self.is_global_zero,
-            prefix_to_remove="_module.",
-            **extra_ckpt_dict,
-        )
+       # if hasattr(self._precision_plugin, "scaler"):
+       #     extra_ckpt_dict["gradscaler"] = self._precision_plugin.scaler
+        checkpointer = MyCheckpointer(model, cfg.OUTPUT_DIR,  save_to_disk=self.is_global_zero, prefix_to_remove="_module.", **extra_ckpt_dict,)
         start_iter = checkpointer.resume_or_load(cfg.MODEL.WEIGHTS, resume=resume).get("iteration", -1) + 1
 
         # Exponential moving average (NOTE: initialize ema after loading weights) ========================
