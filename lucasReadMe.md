@@ -19,8 +19,8 @@ the below command will start training using the ipd dataset
 ```./core/gdrn_modeling/train_gdrn.sh configs/gdrn/ipd/ipd_config.py 0```
 
 # Adding a custom dataset
-Currently not working, below are some things I found that may help to solve the issue, you may also review the repository here to see exactly what I have changed thus far
-There are some steps detailed below at the bottom of this page. These were the changes I made, alongside copying a config file (for me I chose icbin ), which had bad results, as well as ycbv.
+Currently not working, below are some things I found that may help to solve the issue, you may also review the repository here to see exactly what I have changed thus far.
+There are some steps detailed below at the bottom of the issue linked below. I made those changes, alongside copying a config file (for me I chose icbin ), which had bad results, as well as ycbv.
 https://github.com/shanice-l/gdrnpp_bop2022/issues/49#issuecomment-1832903008
 
 
@@ -29,7 +29,8 @@ Below is my analysis of the error that I am getting TLDR: I am misnaming somethi
 AttributeError: 'ConfigDict' object has no attribute 'DATA_CFG'
 From my reading, this is occuring because this if statement is not executing the first half of it from /core/gdrn_modeling/datasets/dataset_factory.py, line 92
 
-```       for name in cfg.DATASETS.get(split, []):
+```
+  for name in cfg.DATASETS.get(split, []):
             if name in DatasetCatalog.list():
                 continue
             registered = False
@@ -55,4 +56,4 @@ From my reading, this is occuring because this if statement is not executing the
                 register_dataset(mod_name, name, data_cfg)
 
 ```
-you can see the breakpoint is being activated, which means the break statement is not being run to kick us out of the loop. I have to think that the correct name is not being added to DatasetCatalog or _DSET_MOD_NAMES lists. I will go look at these functions more closely to hopefully determine where the error is.
+you can see the breakpoint is being activated, which means the break statement is not being run to kick us out of the loop. I have to think that the correct name is not being added to DatasetCatalog or _DSET_MOD_NAMES lists.
