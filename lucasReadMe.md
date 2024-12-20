@@ -2,15 +2,18 @@
 run Kais json_gen.py script from inside ipd_bop_data/ to generate models_info.json and run kais other script /ipd_bop_data/train_pbr/000000/combine_cam_data.py to combine the tricamera data into single cam data ( I think this is what that is doing)
 #To get my image
 Ensure you have Docker and NVCC installed (check by running nvcc --version) if the gpu driver is above a certain threshold, then it will be ok to use with any CUDA
+if you haven't login, please run
+```sudo docker login```
+and login with the ```cirp``` account. Contact `huaijin@hawaii.edu` if you don't have the credentials.
 run the following command to pull the docker 
-```docker pull cirp/bop_gdrnpp2022```
+```docker pull cirp/gdrnpp_cirp```
 
 once it is on the machine, run
-```sudo docker run -it --shm-size=16G --gpus all -v /mnt/sda:/gdrnpp_bop2022/datasets/BOP_DATASETS gdrnpp_cirp:working3```
+```sudo docker run -it --shm-size=16G --gpus all -v /mnt/sda:/gdrnpp_bop2022/datasets/BOP_DATASETS gdrnpp_cirp:latest```
 
-this will place you in an interactive terminal, with GPU's activated, with 16GB of shared memory (you should probably increase that!) with the datasets mounted inside the working repository. Change /mnt/sda if your dataset is at a different spot.
+this will place you in an interactive terminal, with GPU's activated, with 16GB of shared memory (you should probably increase that!) with the datasets mounted inside the working repository. Change ```/mnt/sda``` if your dataset is at a different spot.
 
-# Running the Model
+# Training the Model
 Once inside the container, you can run the following command to begin training
 ```./core/gdrn_modeling/train_gdrn.sh configs/gdrn/icbin_pbr/convnext_a6_AugCosyAAEGray_BG05_mlL1_DMask_amodalClipBox_classAware_icbin.py 0```
 if you get error like "unknown CUDA error" try resetting both the local machine and docker env (do docker commit then run that image again)
