@@ -1,5 +1,5 @@
 # Editing Data
-run Kais json_gen.py script from inside ipd_bop_data/ to generate models_info.json and run kais other script /ipd_bop_data/train_pbr/000000/combine_cam_data.py to combine the tricamera data into single cam data ( I think this is what that is doing)
+run Kai's `json_gen.py` script from inside `ipd_bop_data/` to generate `models_info.json` and run kais other script `/ipd_bop_data/train_pbr/000000/combine_cam_data.py` to combine the tricamera data into single cam data ( I think this is what that is doing)
 #To get my image
 Ensure you have Docker and NVCC installed (check by running nvcc --version) if the gpu driver is above a certain threshold, then it will be ok to use with any CUDA
 if you haven't login, please run
@@ -10,6 +10,11 @@ run the following command to pull the docker
 
 once it is on the machine, run
 ```sudo docker run -it --shm-size=16G --gpus all -v /mnt/sda:/gdrnpp_bop2022/datasets/BOP_DATASETS gdrnpp_cirp:latest```
+
+if you have module pytorch_lightning not found error, run 
+```
+python -m pip install pytorch-lightning
+```
 
 this will place you in an interactive terminal, with GPU's activated, with 16GB of shared memory (you should probably increase that!) with the datasets mounted inside the working repository. Change ```/mnt/sda``` if your dataset is at a different spot.
 
