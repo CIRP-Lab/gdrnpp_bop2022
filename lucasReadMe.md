@@ -9,7 +9,7 @@ run the following command to pull the docker
 ```docker pull cirp/gdrnpp_cirp```
 
 once it is on the machine, run
-```sudo docker run -it --shm-size=16G --gpus all -v /mnt/sda:/gdrnpp_bop2022/datasets/BOP_DATASETS gdrnpp_cirp:latest```
+```sudo docker run -it --shm-size=16G --gpus all -v /mnt/sda:/gdrnpp_bop2022/datasets/BOP_DATASETS cirp/gdrnpp_cirp:latest```
 
 if you have module pytorch_lightning not found error, run 
 ```
